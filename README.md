@@ -20,13 +20,13 @@ Visit http://localhost:8000.
 4. Select **main** and **/ (root)**, then **Save**.
 5. GitHub displays the published URL when deployment completes. Relative asset paths support both `username.github.io` and project repositories.
 
-Before sharing, change `og:image` in `index.html` to the absolute published URL of `assets/og-image.png` (for example, `https://USERNAME.github.io/REPOSITORY/assets/og-image.png`). Add an `og:url` and canonical link using the final public URL if desired. This lets social crawlers reliably resolve the title card.
+`og:image` in `index.html` uses the absolute published URL `https://tornado984.github.io/assets/og-image.png` (1200×630), with `og:url` and a canonical link to `https://tornado984.github.io/`. This lets social crawlers reliably resolve the title card.
 
 ## Customize
 
 - Colors, spacing, and responsive styles: `styles.css`.
 - Copy, projects, navigation, and contact links: `index.html`.
-- Search for `data-todo="linkedin"` and `data-todo="email"` to replace the clearly marked contact placeholders with real links.
+- Contact links for Upwork, GitHub, LinkedIn, and email (`mailto:ciferlu4@gmail.com`) are in `index.html`.
 - Project images are original SVG architecture illustrations, not screenshots or measured results.
 - `assets/og-image.svg` is the editable title card source; `assets/og-image.png` is its social-sharing version.
 - The original supplied `penai-scanner-home.png` is retained, but the cards use consistent SVG illustrations.
