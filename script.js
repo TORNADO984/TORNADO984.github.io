@@ -64,7 +64,38 @@ function renderCertifications() {
       meta.append(idRow);
     }
 
-    article.append(top, title, meta);
+    const body = document.createElement('div');
+    body.className = 'certification-body';
+    body.append(top, title, meta);
+
+    if (cert.thumb && cert.image) {
+      const shot = document.createElement('a');
+      shot.className = 'cert-shot';
+      shot.href = cert.fallback || cert.image;
+      shot.target = '_blank';
+      shot.rel = 'noopener noreferrer';
+      const picture = document.createElement('picture');
+      const source = document.createElement('source');
+      source.type = 'image/webp';
+      source.srcset = cert.thumb;
+      const img = document.createElement('img');
+      img.src = cert.fallback || cert.thumb;
+      img.alt = `${cert.name} certificate`;
+      img.width = cert.thumbWidth || 800;
+      img.height = cert.thumbHeight || 566;
+      img.loading = 'lazy';
+      img.decoding = 'async';
+      picture.append(source, img);
+      shot.append(picture);
+      shot.addEventListener('click', event => {
+        if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
+        if (!openCertLightbox(cert, shot)) return;
+        event.preventDefault();
+      });
+      article.append(shot);
+    }
+
+    article.append(body);
     if (cert.verifyUrl) {
       const verify = document.createElement('a');
       verify.className = 'button secondary certification-verify';
@@ -77,7 +108,7 @@ function renderCertifications() {
       arrow.setAttribute('aria-hidden', 'true');
       arrow.textContent = '↗';
       verify.append(arrow);
-      article.append(verify);
+      body.append(verify);
     }
 
     fragment.append(article);
@@ -86,7 +117,44 @@ function renderCertifications() {
   grid.replaceChildren(fragment);
 }
 
+function openCertLightbox(cert, trigger) {
+  const dialog = document.getElementById('cert-lightbox');
+  if (!dialog || typeof dialog.showModal !== 'function') return false;
+  const title = document.getElementById('cert-lightbox-title');
+  const source = document.getElementById('cert-lightbox-source');
+  const image = document.getElementById('cert-lightbox-image');
+  if (title) title.textContent = cert.name;
+  if (source) source.srcset = cert.image;
+  if (image) {
+    image.src = cert.fallback || cert.image;
+    image.alt = `${cert.name} certificate`;
+    image.width = cert.imageWidth || 1200;
+    image.height = cert.imageHeight || 848;
+  }
+  if (!openCertLightbox.triggers) openCertLightbox.triggers = new WeakMap();
+  openCertLightbox.triggers.set(dialog, trigger);
+  if (!dialog.open) dialog.showModal();
+  const close = dialog.querySelector('.cert-lightbox-close');
+  if (close) close.focus();
+  return true;
+}
+
+function setupCertLightbox() {
+  const dialog = document.getElementById('cert-lightbox');
+  if (!dialog) return;
+  dialog.addEventListener('click', event => {
+    if (event.target === dialog) dialog.close();
+  });
+  const close = dialog.querySelector('.cert-lightbox-close');
+  if (close) close.addEventListener('click', () => dialog.close());
+  dialog.addEventListener('close', () => {
+    const trigger = openCertLightbox.triggers && openCertLightbox.triggers.get(dialog);
+    if (trigger) trigger.focus();
+  });
+}
+
 renderCertifications();
+setupCertLightbox();
 
 const year = document.getElementById('year');
 if (year) year.textContent = new Date().getFullYear();
