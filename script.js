@@ -169,3 +169,50 @@ if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-mot
   }, { threshold: 0.08 });
   document.querySelectorAll('.service, .project, .stack-section, .certification, .contact').forEach(el => observer.observe(el));
 }
+
+const navToggle = document.querySelector('.nav-toggle');
+const mobileNav = document.getElementById('mobile-nav');
+if (navToggle && mobileNav) {
+  navToggle.addEventListener('click', () => {
+    const open = mobileNav.hidden;
+    mobileNav.hidden = !open;
+    navToggle.setAttribute('aria-expanded', String(open));
+    navToggle.setAttribute('aria-label', open ? 'Close navigation menu' : 'Open navigation menu');
+  });
+  mobileNav.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileNav.hidden = true;
+      navToggle.setAttribute('aria-expanded', 'false');
+      navToggle.setAttribute('aria-label', 'Open navigation menu');
+    });
+  });
+}
+
+const matrix = document.getElementById('matrix');
+if (matrix && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  const ctx = matrix.getContext('2d');
+  const glyphs = '01AE$#/\\{}[]<>';
+  let columns = [];
+  let width = 0;
+  const resize = () => {
+    width = matrix.width = window.innerWidth;
+    matrix.height = window.innerHeight;
+    const count = Math.ceil(width / 18);
+    columns = Array.from({ length: count }, () => Math.random() * -40);
+  };
+  resize();
+  window.addEventListener('resize', resize);
+  const draw = () => {
+    ctx.fillStyle = 'rgba(11,15,25,0.18)';
+    ctx.fillRect(0, 0, matrix.width, matrix.height);
+    ctx.fillStyle = '#3b82f6';
+    ctx.font = '13px JetBrains Mono, monospace';
+    columns.forEach((y, i) => {
+      const char = glyphs[Math.floor(Math.random() * glyphs.length)];
+      ctx.fillText(char, i * 18, y * 18);
+      columns[i] = y * 18 > matrix.height && Math.random() > 0.975 ? 0 : y + 1;
+    });
+    requestAnimationFrame(draw);
+  };
+  draw();
+}
