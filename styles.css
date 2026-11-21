@@ -90,7 +90,9 @@ h2{margin:0;font-family:var(--font-display);font-size:clamp(28px,4vw,40px);lette
 .service p,.service .service-tools{margin:0}
 .service-tools{margin-top:16px!important;font-family:var(--font-mono);font-size:11px;color:#93c5fd}
 .project,.certification{min-width:0;display:flex;flex-direction:column;overflow:hidden}
+.project-image{position:relative;display:block}
 .project-image img,.cert-shot img{display:block;width:100%;height:auto}
+.shot-label{position:absolute;left:10px;bottom:10px;z-index:1;font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;color:#dbeafe;background:rgba(11,15,25,.78);border:1px solid rgba(96,165,250,.45);border-radius:999px;padding:4px 8px}
 .project-body,.certification-body{padding:18px;display:flex;flex-direction:column;flex:1}
 .project-type,.certification-kicker{margin:0 0 8px;font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;color:var(--glow)}
 .project h3 a{display:flex;justify-content:space-between;gap:8px}
