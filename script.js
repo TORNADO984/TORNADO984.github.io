@@ -167,7 +167,7 @@ if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-mot
       }
     });
   }, { threshold: 0.08 });
-  document.querySelectorAll('.service, .project, .stack-section, .certification, .contact').forEach(el => observer.observe(el));
+  document.querySelectorAll('.service, .project, .stack-section, .certification, .milestone-card, .contact').forEach(el => observer.observe(el));
 }
 
 const navToggle = document.querySelector('.nav-toggle');

@@ -90,7 +90,9 @@ h2{margin:0;font-family:var(--font-display);font-size:clamp(28px,4vw,40px);lette
 .service p,.service .service-tools{margin:0}
 .service-tools{margin-top:16px!important;font-family:var(--font-mono);font-size:11px;color:#93c5fd}
 .project,.certification{min-width:0;display:flex;flex-direction:column;overflow:hidden}
+.project-image{position:relative;display:block}
 .project-image img,.cert-shot img{display:block;width:100%;height:auto}
+.shot-label{position:absolute;left:10px;bottom:10px;z-index:1;font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;color:#dbeafe;background:rgba(11,15,25,.78);border:1px solid rgba(96,165,250,.45);border-radius:999px;padding:4px 8px}
 .project-body,.certification-body{padding:18px;display:flex;flex-direction:column;flex:1}
 .project-type,.certification-kicker{margin:0 0 8px;font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;color:var(--glow)}
 .project h3 a{display:flex;justify-content:space-between;gap:8px}
@@ -109,6 +111,20 @@ summary::-webkit-details-marker{display:none}
 .certification-meta dd{margin:0;overflow-wrap:anywhere}
 .credential-id{font-family:var(--font-mono);font-size:12px;color:#dbeafe}
 .certification-verify{margin-top:auto;align-self:flex-start}
+.timeline{list-style:none;margin:0;padding:0 0 0 8px;position:relative}
+.timeline::before{content:"";position:absolute;left:15px;top:8px;bottom:8px;width:2px;background:linear-gradient(#93c5fd,#1d4ed8);box-shadow:0 0 14px rgba(96,165,250,.7)}
+.milestone{position:relative;padding:0 0 18px 48px}
+.milestone-node{position:absolute;left:8px;top:22px;width:16px;height:16px;border-radius:50%;background:#0b0f19;border:2px solid #60a5fa;box-shadow:0 0 0 4px rgba(59,130,246,.18),0 0 16px #60a5fa}
+.milestone-card{background:var(--card);border:1px solid rgba(59,130,246,.3);border-radius:16px;padding:18px 20px;box-shadow:0 0 15px rgba(59,130,246,.12)}
+.milestone-card:hover{border-color:rgba(96,165,250,.65);box-shadow:0 0 24px rgba(96,165,250,.28)}
+.milestone-top{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:8px}
+.milestone-date{margin:0;font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;color:var(--glow)}
+.milestone-badge{margin:0;font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;color:#dbeafe;border:1px solid rgba(96,165,250,.4);border-radius:999px;padding:4px 8px}
+.milestone-card h3{margin:0 0 8px;font-family:var(--font-display);font-size:20px;letter-spacing:-.02em}
+.milestone-card p{margin:0;color:var(--muted);line-height:1.65}
+.milestone-card .text-link{display:inline-flex;margin-top:12px}
+.milestone-card.reveal{animation:milestoneIn .7s both}
+@keyframes milestoneIn{from{opacity:.25;transform:translateY(18px)}to{opacity:1;transform:none}}
 .contact{padding:36px 28px;margin-bottom:48px}
 .contact h2{font-size:clamp(32px,5vw,52px);line-height:1.1}
 .contact h2 span{color:var(--glow);text-shadow:0 0 12px rgba(96,165,250,.4)}
@@ -150,6 +166,12 @@ summary::-webkit-details-marker{display:none}
   h1{font-size:58px}
   .status-pill{left:16px;right:16px;justify-content:center}
   .footer-note{margin-left:0}
+}
+@media(max-width:760px){
+  .milestone{padding-left:40px}
+  .timeline::before{left:11px}
+  .milestone-node{left:4px}
+  .milestone-top{align-items:flex-start;flex-direction:column}
 }
 @media(prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
